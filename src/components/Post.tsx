@@ -8,9 +8,8 @@ interface PostProps {
 }
 export default function Post({ author, content, variantColor }: PostProps) {
 
-    const bg = variantColor.trim() !== "" ? `bg-sky-500/${variantColor}` : "bg-sky-500";
-    console.log("bg", bg);
-    return <Card className={bg} >
+
+    return <Card className={variantColor} >
         <CardHeader className="font-bold text-left uppercase">{author}</CardHeader>
         <CardContent className="text-left italic">{content}</CardContent>
     </Card>;

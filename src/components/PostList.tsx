@@ -1,10 +1,14 @@
 
+
 import Post from "./Post"
+import type { Post as PostType } from "../App"
 
-const posts = [{ author: "Maximilian", content: "React.js is awesome!" }, { author: "John", content: "I love coding!", variantColor: "75" }, { author: "Alice", content: "JavaScript is my favorite language!", variantColor: "50" }];
+interface PostListProps {
+    posts: PostType[]
+}
 
-export default function PostList() {
-    return <div className="grid grid-flow-col grid-cols-3 gap-4 m-6">
+export default function PostList({ posts }: PostListProps) {
+    return <div className="grid grid-flow-rows grid-cols-3 flex-wrap gap-4 m-6">
         {posts.map((post, index) => <Post key={index} author={post.author} content={post.content} variantColor={post.variantColor ? post.variantColor : ""} />)}
     </div>
 
