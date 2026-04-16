@@ -9,7 +9,7 @@ interface PostListProps {
 
 export default function PostList({ posts }: PostListProps) {
     return <div className="grid grid-flow-rows grid-cols-3 flex-wrap gap-4 m-6">
-        {posts.map((post, index) => <Post key={index} author={post.author} content={post.content} variantColor={post.variantColor ? post.variantColor : ""} />)}
+        {posts.map((post) => <Post key={post.id} author={post.author} body={post.body} />)}
     </div>
 
 }

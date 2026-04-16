@@ -6,7 +6,7 @@ import { DialogNewPost } from './DialogNewPost';
 import type { Post } from '@/App';
 
 interface HeaderProps {
-    createNewPost: (post: Post) => void;
+    createNewPost: (post: Omit<Post, "id">) => void;
 }
 export function Header({ createNewPost }: HeaderProps) {
     const [isOpen, setIsOpen] = useState(false);
@@ -15,7 +15,7 @@ export function Header({ createNewPost }: HeaderProps) {
             <MessageSquareText color='white' size={30} />
             <h2 className='text-white text-xl font-bold' >React Poster</h2>
         </div>
-        <Button className='text-xs font-bold p-5' onClick={() => setIsOpen(true)}>
+        <Button variant="outline" className='text-xs font-bold p-5 bg-emerald-500 text-white hover:bg-emerald-600 hover:text-white' onClick={() => setIsOpen(true)}>
             <NotepadText size={20} /> New Post
         </Button>
         <DialogNewPost createNewPost={createNewPost} isOpen={isOpen} onOpenChange={setIsOpen} />

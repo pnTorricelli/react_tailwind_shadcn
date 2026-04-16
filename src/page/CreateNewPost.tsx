@@ -1,29 +1,32 @@
-import { Dialog, DialogContent, DialogTitle } from "./ui/dialog";
-import { Input } from "./ui/input";
-import { Button } from "./ui/button";
-import { Label } from "./ui/label";
-import { Textarea } from "./ui/textarea";
 import type { Post } from "@/App";
+import { Button } from "@/components/ui/button";
+import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Textarea } from "@/components/ui/textarea";
 import { useState } from "react";
 
-interface DialogNewPostProps {
-    isOpen: boolean;
-    onOpenChange: (open: boolean) => void;
-    createNewPost: (post: Omit<Post, "id">) => void;
-}
-
-export function DialogNewPost({ isOpen, onOpenChange, createNewPost }: DialogNewPostProps) {
+export function CreateNewPost() {
 
     const [author, setAuthor] = useState("");
     const [body, setBody] = useState("");
 
+    const createPost = (post: Omit<Post, "id">) => {
+        fetch("http://localhost:8080/posts", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(post)
+        })
+    };
+
     const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
-        createNewPost({ author, body });
-        onOpenChange(false);
-    }
-    return (<Dialog open={isOpen} onOpenChange={onOpenChange} >
+        createPost({ author, body });
 
+    }
+    return (<Dialog open={true}  >
         <DialogContent showCloseButton={false} className="bg-emerald-100">
             <DialogTitle>Create Post</DialogTitle>
             <form onSubmit={handleSubmit} className="text-center">
@@ -45,5 +48,4 @@ export function DialogNewPost({ isOpen, onOpenChange, createNewPost }: DialogNew
             </form>
         </DialogContent>
     </Dialog>)
-
 }

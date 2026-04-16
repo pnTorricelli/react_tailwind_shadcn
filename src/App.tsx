@@ -1,25 +1,50 @@
 
-import { Header } from "./components/Header"
+
 import PostList from "./components/PostList"
-import { Separator } from "./components/ui/separator"
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { LogoSpinner } from "./components/ui/spinner";
+
 export interface Post {
+  id: number,
   author: string,
-  content: string,
-  variantColor: string
+  body: string,
 }
 
 export default function App() {
-  const [posts, setPosts] = useState<Post[]>([{ author: "Maxximilian", content: "Recap React", variantColor: "bg-sky-500" }, { author: "Maxximilian", content: "Recap React", variantColor: "bg-sky-500/75" }, { author: "Max", content: "I like React", variantColor: "bg-sky-500/50" }]);
+  const [posts, setPosts] = useState<Post[]>([]);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
-  const createPost = (post: Post) => {
-    setPosts([...posts, post]);
-  }
+  useEffect(() => { console.log("Posts updated:", posts) }, [posts])
+
+
+  useEffect(() => {
+    async function fetchPosts(): Promise<void> {
+      try {
+        setLoading(true);
+        const response = await fetch("http://localhost:8080/posts");
+        console.log("Response status:", response.status);
+        const data = await response.json();
+        setPosts(data.posts);
+      } catch (error) {
+        console.error("Error fetching posts:", error);
+        setError("Failed to fetch posts");
+      } finally {
+        setLoading(false);
+      }
+
+    }
+    fetchPosts();
+  }, [])
+
+
+
 
   return (<>
-    <Header createNewPost={createPost}></Header>
-    <Separator></Separator>
-    <PostList posts={posts} />
+    {loading && <div className="flex items-center justify-center  w-full  mt-10"><LogoSpinner className="size-8" /></div>}
+    {!loading && error && <div className="text-center text-red-500 mt-10">Error: {error}</div>}
+    {!loading && !error && posts.length === 0 && <div className="text-center text-gray-500 mt-10">No posts yet. Create one!</div>}
+    {!loading && !error && posts.length > 0 && <PostList posts={posts} />}
   </>
   )
 }
