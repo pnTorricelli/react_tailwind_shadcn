@@ -3,7 +3,7 @@ import { MessageSquareText, NotepadText } from 'lucide-react';
 import { Button } from './ui/button';
 import { useState } from 'react';
 import { DialogNewPost } from './DialogNewPost';
-import type { Post } from '@/App';
+import type { Post } from '@/router/App';
 
 interface HeaderProps {
     createNewPost: (post: Omit<Post, "id">) => void;

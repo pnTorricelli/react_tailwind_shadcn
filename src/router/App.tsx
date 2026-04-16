@@ -1,8 +1,8 @@
 
 
-import PostList from "./components/PostList"
+import PostList from "../components/PostList"
 import { useEffect, useState } from "react";
-import { LogoSpinner } from "./components/ui/spinner";
+import { LogoSpinner } from "../components/ui/spinner";
 
 export interface Post {
   id: number,

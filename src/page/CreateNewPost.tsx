@@ -1,4 +1,4 @@
-import type { Post } from "@/App";
+import type { Post } from "@/router/App";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";

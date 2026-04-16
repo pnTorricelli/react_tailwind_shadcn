@@ -1,7 +1,7 @@
 
 
 import Post from "./Post"
-import type { Post as PostType } from "../App"
+import type { Post as PostType } from "../router/App"
 
 interface PostListProps {
     posts: PostType[]

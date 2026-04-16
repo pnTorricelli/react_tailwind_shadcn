@@ -3,7 +3,7 @@ import { Input } from "./ui/input";
 import { Button } from "./ui/button";
 import { Label } from "./ui/label";
 import { Textarea } from "./ui/textarea";
-import type { Post } from "@/App";
+import type { Post } from "@/router/App";
 import { useState } from "react";
 
 interface DialogNewPostProps {
